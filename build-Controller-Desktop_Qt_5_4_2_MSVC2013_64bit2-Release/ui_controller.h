@@ -33,12 +33,12 @@ public:
     QPushButton *pushButton;
     QLabel *label;
     QLabel *label_status;
-    QWidget *widget;
+    QWidget *layoutWidget;
     QVBoxLayout *verticalLayout;
     QLineEdit *lineEdit;
     QLineEdit *lineEdit_2;
     QLineEdit *lineEdit_3;
-    QWidget *widget1;
+    QWidget *layoutWidget1;
     QVBoxLayout *verticalLayout_2;
     QLabel *label_status_2;
     QLabel *label_status_3;
@@ -63,48 +63,48 @@ public:
         label_status = new QLabel(centralWidget);
         label_status->setObjectName(QStringLiteral("label_status"));
         label_status->setGeometry(QRect(110, 10, 91, 31));
-        widget = new QWidget(centralWidget);
-        widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(80, 60, 135, 111));
-        verticalLayout = new QVBoxLayout(widget);
+        layoutWidget = new QWidget(centralWidget);
+        layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
+        layoutWidget->setGeometry(QRect(80, 60, 135, 111));
+        verticalLayout = new QVBoxLayout(layoutWidget);
         verticalLayout->setSpacing(6);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
-        lineEdit = new QLineEdit(widget);
+        lineEdit = new QLineEdit(layoutWidget);
         lineEdit->setObjectName(QStringLiteral("lineEdit"));
 
         verticalLayout->addWidget(lineEdit);
 
-        lineEdit_2 = new QLineEdit(widget);
+        lineEdit_2 = new QLineEdit(layoutWidget);
         lineEdit_2->setObjectName(QStringLiteral("lineEdit_2"));
 
         verticalLayout->addWidget(lineEdit_2);
 
-        lineEdit_3 = new QLineEdit(widget);
+        lineEdit_3 = new QLineEdit(layoutWidget);
         lineEdit_3->setObjectName(QStringLiteral("lineEdit_3"));
 
         verticalLayout->addWidget(lineEdit_3);
 
-        widget1 = new QWidget(centralWidget);
-        widget1->setObjectName(QStringLiteral("widget1"));
-        widget1->setGeometry(QRect(10, 60, 68, 111));
-        verticalLayout_2 = new QVBoxLayout(widget1);
+        layoutWidget1 = new QWidget(centralWidget);
+        layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
+        layoutWidget1->setGeometry(QRect(10, 60, 68, 111));
+        verticalLayout_2 = new QVBoxLayout(layoutWidget1);
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setContentsMargins(11, 11, 11, 11);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
         verticalLayout_2->setContentsMargins(0, 0, 0, 0);
-        label_status_2 = new QLabel(widget1);
+        label_status_2 = new QLabel(layoutWidget1);
         label_status_2->setObjectName(QStringLiteral("label_status_2"));
 
         verticalLayout_2->addWidget(label_status_2);
 
-        label_status_3 = new QLabel(widget1);
+        label_status_3 = new QLabel(layoutWidget1);
         label_status_3->setObjectName(QStringLiteral("label_status_3"));
 
         verticalLayout_2->addWidget(label_status_3);
 
-        label_status_4 = new QLabel(widget1);
+        label_status_4 = new QLabel(layoutWidget1);
         label_status_4->setObjectName(QStringLiteral("label_status_4"));
 
         verticalLayout_2->addWidget(label_status_4);
@@ -131,7 +131,7 @@ public:
         Controller->setWindowTitle(QApplication::translate("Controller", "Controller", 0));
         pushButton->setText(QApplication::translate("Controller", "Stop", 0));
         label->setText(QApplication::translate("Controller", "Controller status", 0));
-        label_status->setText(QApplication::translate("Controller", "Disconnected", 0));
+        label_status->setText(QApplication::translate("Controller", "status", 0));
         label_status_2->setText(QApplication::translate("Controller", "X position", 0));
         label_status_3->setText(QApplication::translate("Controller", "Y position", 0));
         label_status_4->setText(QApplication::translate("Controller", "Retract cover", 0));

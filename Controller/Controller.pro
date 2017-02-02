@@ -24,8 +24,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += main.cpp\
-        controller.cpp
+        controller.cpp \
+    tmcl.cpp
 
-HEADERS  += controller.h
+HEADERS  += controller.h \
+    tmcl.h
 
 FORMS    += controller.ui
