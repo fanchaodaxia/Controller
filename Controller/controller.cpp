@@ -26,12 +26,14 @@ Controller::Controller(QWidget *parent) :
            qDebug() << "Name : " << info.portName();
            qDebug() << "Description : " << info.description();
            qDebug() << "Manufacturer: " << info.manufacturer();
+           qDebug() << "VendorID:" << info.vendorIdentifier();
     }
     foreach (const QSerialPortInfo &info, QSerialPortInfo::availablePorts()){
             if (info.hasVendorIdentifier()){
-                if (info.vendorIdentifier() == controller_vendorID)
+                if (info.vendorIdentifier() == controller_vendorID){
                     controller_port_name = info.portName();
                     controller_is_avalable = true;
+                }
             }
     }
 
@@ -45,12 +47,12 @@ Controller::Controller(QWidget *parent) :
         controller->setParity(QSerialPort::NoParity);
         controller->setStopBits(QSerialPort::OneStop);
         controller->setFlowControl(QSerialPort::NoFlowControl);
-        controller_status = "Connected";
+        controller_status = "Controller Connected";
         ui->label_status->setText(controller_status);
     }
     else{
         // give error massage if not avalable
-       // QMessageBox::warning(this,"Port error","Connot find the controller!");
+       QMessageBox::warning(this,"Port error","Connot find the controller!");
     }
 
 }
@@ -122,11 +124,10 @@ UCHAR Controller::GetResult(UCHAR *Address, UCHAR *Status, int *Value)
             Checksum+=RxBuffer[i];
 
         if(Checksum!=RxBuffer[8]) return TMCL_RESULT_CHECKSUM_ERROR;
-
         *Address=RxBuffer[0];
         *Status=RxBuffer[2];
         *Value=(RxBuffer[4] << 24) | (RxBuffer[5] << 16) | (RxBuffer[6] << 8) | RxBuffer[7];
     } else return TMCL_RESULT_NOT_READY;
 
-
+    return TMCL_RESULT_OK;
 }
