@@ -21,11 +21,12 @@ public:
 private:
     Ui::Controller *ui;
     QSerialPort *controller;
-    static const  quint16 controller_vendorID = 5840;
-    QString controller_port_name;
-    bool controller_is_avalable;
-    QString controller_status;
-    HANDLE controller_handle;
+    //static const  quint16 controller_vendorID = 5840;
+    //QString controller_port_name;
+    //bool controller_is_avalable;
+    //QString controller_status;
+    //HANDLE controller_handle;
+    HANDLE ComHandle;
 };
 
 #endif // CONTROLLER_H
