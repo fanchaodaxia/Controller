@@ -23,9 +23,11 @@ int main(int argc, char *argv[])
     Controller w;
     w.show();
     //w.SendCmd(1,TMCL_MVP,MVP_REL,1,2000);
-    w.SendCmd(1,TMCL_ROR,0,1,1000);
+    //w.SendCmd(1,TMCL_ROR,0,1,1000);
+    w.SendCmd(1,TMCL_MST,0,1,0); // motor stop
+
     Sleeper::sleep(1);
-    w.SendCmd(1,TMCL_ROR,0,2,1000);
+    //w.SendCmd(1,TMCL_ROR,0,2,1000);
 
     result = w.GetResult(add,status,value);
     qDebug() << *add;
