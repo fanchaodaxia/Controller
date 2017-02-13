@@ -16,61 +16,37 @@ Controller::Controller(QWidget *parent) :
 {
     ui->setupUi(this);
 
-
-
-
-
-    ui->label_status->setText("controller not connected");
+    // initialization of the variables
+    controller_status = "Not connected";
+    controller_is_avalable = false;
+    controller_port_name = "";
+    controller = new QSerialPort;
+    ui->label_status->setText(controller_status);// initial state of the communication
 
 // open the serial port
 
-        DCB CommDCB;
-        COMMTIMEOUTS CommTimeouts;
-        LPCWSTR ComName = L"COM4";
-        DWORD BaudRate = CBR_9600;
-        ComHandle=CreateFile(ComName, GENERIC_READ|GENERIC_WRITE, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
-
-        if(GetLastError()!=ERROR_SUCCESS)
-        {
-            QMessageBox::warning(this,"port error","connection not success");
-        }
-        else
-        {
-            GetCommState(ComHandle, &CommDCB);
-            CommDCB.BaudRate=BaudRate;
-            CommDCB.Parity=NOPARITY;
-            CommDCB.StopBits=ONESTOPBIT;
-            CommDCB.ByteSize=8;
-
-            CommDCB.fBinary=1;  //Binary Mode only
-            CommDCB.fParity=0;
-            CommDCB.fOutxCtsFlow=0;
-            CommDCB.fOutxDsrFlow=0;
-            CommDCB.fDtrControl=0;
-            CommDCB.fDsrSensitivity=0;
-            CommDCB.fTXContinueOnXoff=0;
-            CommDCB.fOutX=0;
-            CommDCB.fInX=0;
-            CommDCB.fErrorChar=0;
-            CommDCB.fNull=0;
-            CommDCB.fRtsControl=RTS_CONTROL_TOGGLE;
-            CommDCB.fAbortOnError=0;
-
-            SetCommState(ComHandle, &CommDCB);
-
-            //Set buffer size
-            SetupComm(ComHandle, 100, 100);  //Empfangspuffer, Sendepuffer (auch andere Werte möglich)
-
-            //Set up timeout values (very important, as otherwise the program will be very slow)
-        GetCommTimeouts(ComHandle, &CommTimeouts);
-
-            CommTimeouts.ReadIntervalTimeout=MAXDWORD;
-            CommTimeouts.ReadTotalTimeoutMultiplier=0;
-            CommTimeouts.ReadTotalTimeoutConstant=0;
-            SetCommTimeouts(ComHandle, &CommTimeouts);
-            ui->label_status->setText("COM5 connected");
-      }
+    if (controller_is_avalable)
+    {
+        //open and configure the serialpoort
+        controller->setPortName(controller_port_name);
+        controller->open(QSerialPort::ReadWrite);
+        controller->setBaudRate(QSerialPort::Baud9600);
+        controller->setDataBits(QSerialPort::Data8);
+        controller->setParity(QSerialPort::NoParity);
+        controller->setStopBits(QSerialPort::OneStop);
+        controller->setFlowControl(QSerialPort::NoFlowControl);
+        controller_status = controller_port_name+"Controller Connected";
+        ui->label_status->setText(controller_status);
     }
+    else
+    {
+        // give error massage if not avalable
+       QMessageBox::warning(this,"Port error","Connot find the controller!");
+    }
+
+    ui->label_status->setText(controller_port_name+"connected");
+
+ }
 
 
 Controller::~Controller()
@@ -79,7 +55,6 @@ Controller::~Controller()
         controller->close();
     }
     delete ui;
-
 }
 
 
@@ -108,8 +83,11 @@ void Controller::SendCmd(UCHAR Address, UCHAR Command, UCHAR Type, UCHAR Motor, 
     for(i=0; i<8; i++)
         TxBuffer[8]+=TxBuffer[i];
 
-    //Senden
-    WriteFile(ComHandle, TxBuffer, 9, &BytesWritten, NULL);
+    //send out data to controller
+
+    //WriteFile(ComHandle, TxBuffer, 9, &BytesWritten, NULL); // old way
+    controller->write()
+
 
 }
 
