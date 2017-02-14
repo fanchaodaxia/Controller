@@ -15,15 +15,9 @@ Controller::Controller(QWidget *parent) :
     ui(new Ui::Controller)
 {
     ui->setupUi(this);
-
-
-
-
-
     ui->label_status->setText("controller not connected");
 
 // open the serial port
-
         DCB CommDCB;
         COMMTIMEOUTS CommTimeouts;
         LPCWSTR ComName = L"COM4";
@@ -108,7 +102,7 @@ void Controller::SendCmd(UCHAR Address, UCHAR Command, UCHAR Type, UCHAR Motor, 
     for(i=0; i<8; i++)
         TxBuffer[8]+=TxBuffer[i];
 
-    //Senden
+    //Send data out
     WriteFile(ComHandle, TxBuffer, 9, &BytesWritten, NULL);
 
 }
@@ -123,7 +117,7 @@ void Controller::SendCmd(UCHAR Address, UCHAR Command, UCHAR Type, UCHAR Motor, 
 //              TMCL_RESULT_NOT_READY: not enough bytes read so far (try again)
 //              TMCL_RESULT_CHECKSUM_ERROR: checksum of reply packet wrong
 
-UCHAR Controller::GetResult(UCHAR *Address, UCHAR *Status, int *Value)
+UCHAR Controller::GetResult(UCHAR *Address, UCHAR *Status, INT *Value)
 {
     UCHAR RxBuffer[9], Checksum;
     DWORD Errors, BytesRead;
