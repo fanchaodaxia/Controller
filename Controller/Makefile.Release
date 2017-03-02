@@ -11,13 +11,13 @@ MAKEFILE      = Makefile.Release
 
 CC            = cl
 CXX           = cl
-DEFINES       = -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_SERIALPORT_LIB -DQT_CORE_LIB -DNDEBUG
+DEFINES       = -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_SERIALPORT_LIB -DQT_TESTLIB_LIB -DQT_CORE_LIB -DQT_TESTCASE_BUILDDIR=\"C:/Users/Chao/Documents/GitHub/Controller/Controller\" -DNDEBUG
 CFLAGS        = -nologo -Zm200 -Zc:wchar_t -FS -O2 -MD -Zc:strictStrings -W3 $(DEFINES)
 CXXFLAGS      = -nologo -Zm200 -Zc:wchar_t -FS -O2 -MD -Zc:strictStrings -GR -W3 -w34100 -w34189 -EHsc $(DEFINES)
-INCPATH       = -I"." -I"C:\Qt\5.4\msvc2013_64\include" -I"C:\Qt\5.4\msvc2013_64\include\QtWidgets" -I"C:\Qt\5.4\msvc2013_64\include\QtGui" -I"C:\Qt\5.4\msvc2013_64\include\QtANGLE" -I"C:\Qt\5.4\msvc2013_64\include\QtSerialPort" -I"C:\Qt\5.4\msvc2013_64\include\QtCore" -I"release" -I"." -I"C:\Qt\5.4\msvc2013_64\mkspecs\win32-msvc2013" 
+INCPATH       = -I"." -I"C:\Qt\5.4\msvc2013_64\include" -I"C:\Qt\5.4\msvc2013_64\include\QtWidgets" -I"C:\Qt\5.4\msvc2013_64\include\QtGui" -I"C:\Qt\5.4\msvc2013_64\include\QtANGLE" -I"C:\Qt\5.4\msvc2013_64\include\QtSerialPort" -I"C:\Qt\5.4\msvc2013_64\include\QtTest" -I"C:\Qt\5.4\msvc2013_64\include\QtCore" -I"release" -I"." -I"C:\Qt\5.4\msvc2013_64\mkspecs\win32-msvc2013" 
 LINKER        = link
-LFLAGS        = /NOLOGO /DYNAMICBASE /NXCOMPAT /INCREMENTAL:NO /SUBSYSTEM:WINDOWS "/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'"
-LIBS          = /LIBPATH:C:\Qt\5.4\msvc2013_64\lib C:\Qt\5.4\msvc2013_64\lib\qtmain.lib shell32.lib C:\Qt\5.4\msvc2013_64\lib\Qt5Widgets.lib C:\Qt\5.4\msvc2013_64\lib\Qt5Gui.lib C:\Qt\5.4\msvc2013_64\lib\Qt5SerialPort.lib C:\Qt\5.4\msvc2013_64\lib\Qt5Core.lib 
+LFLAGS        = /NOLOGO /DYNAMICBASE /NXCOMPAT /INCREMENTAL:NO /SUBSYSTEM:CONSOLE "/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'"
+LIBS          = /LIBPATH:C:\Qt\5.4\msvc2013_64\lib C:\Qt\5.4\msvc2013_64\lib\Qt5Widgets.lib C:\Qt\5.4\msvc2013_64\lib\Qt5Gui.lib C:\Qt\5.4\msvc2013_64\lib\Qt5SerialPort.lib C:\Qt\5.4\msvc2013_64\lib\Qt5Test.lib C:\Qt\5.4\msvc2013_64\lib\Qt5Core.lib 
 QMAKE         = C:\Qt\5.4\msvc2013_64\bin\qmake.exe
 IDC           = idc
 IDL           = midl
@@ -115,12 +115,12 @@ $(OBJECTS) $(LIBS)
 <<
 
 qmake: FORCE
-	@$(QMAKE) -spec win32-msvc2013 -o Makefile.Release Controller.pro
+	@$(QMAKE) -spec win32-msvc2013 CONFIG+=debug -o Makefile.Release Controller.pro
 
 qmake_all: FORCE
 
 dist:
-	$(ZIP) Controller.zip $(SOURCES) $(DIST) Controller.pro C:\Qt\5.4\msvc2013_64\mkspecs\features\spec_pre.prf C:\Qt\5.4\msvc2013_64\mkspecs\common\shell-win32.conf C:\Qt\5.4\msvc2013_64\mkspecs\qconfig.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_axbase.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_axbase_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_axcontainer.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_axcontainer_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_axserver.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_axserver_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_bluetooth.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_bluetooth_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_bootstrap_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_clucene_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_concurrent.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_concurrent_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_core.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_core_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_dbus.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_dbus_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_declarative.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_declarative_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_designer.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_designer_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_designercomponents_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_enginio.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_enginio_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_gui.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_gui_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_help.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_help_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_location.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_location_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_multimedia.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_multimedia_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_multimediawidgets.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_multimediawidgets_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_network.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_network_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_nfc.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_nfc_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_opengl.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_opengl_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_openglextensions.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_openglextensions_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_platformsupport_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_positioning.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_positioning_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_printsupport.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_printsupport_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_qml.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_qml_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_qmldevtools_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_qmltest.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_qmltest_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_quick.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_quick_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_quickparticles_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_quickwidgets.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_quickwidgets_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_script.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_script_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_scripttools.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_scripttools_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_sensors.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_sensors_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_serialport.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_serialport_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_sql.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_sql_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_svg.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_svg_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_testlib.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_testlib_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_uitools.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_uitools_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_webchannel.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_webchannel_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_webengine.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_webengine_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_webenginecore.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_webenginecore_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_webenginewidgets.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_webenginewidgets_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_webkit.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_webkit_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_webkitwidgets.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_webkitwidgets_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_websockets.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_websockets_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_widgets.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_widgets_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_winextras.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_winextras_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_xml.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_xml_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_xmlpatterns.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_xmlpatterns_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\features\qt_functions.prf C:\Qt\5.4\msvc2013_64\mkspecs\features\qt_config.prf C:\Qt\5.4\msvc2013_64\mkspecs\features\win32\qt_config.prf C:\Qt\5.4\msvc2013_64\mkspecs\win32-msvc2013\qmake.conf C:\Qt\5.4\msvc2013_64\mkspecs\features\spec_post.prf C:\Qt\5.4\msvc2013_64\mkspecs\features\exclusive_builds.prf C:\Qt\5.4\msvc2013_64\mkspecs\features\default_pre.prf C:\Qt\5.4\msvc2013_64\mkspecs\features\win32\default_pre.prf C:\Qt\5.4\msvc2013_64\mkspecs\features\resolve_config.prf C:\Qt\5.4\msvc2013_64\mkspecs\features\exclusive_builds_post.prf C:\Qt\5.4\msvc2013_64\mkspecs\features\default_post.prf C:\Qt\5.4\msvc2013_64\mkspecs\features\build_pass.prf C:\Qt\5.4\msvc2013_64\mkspecs\features\win32\rtti.prf C:\Qt\5.4\msvc2013_64\mkspecs\features\precompile_header.prf C:\Qt\5.4\msvc2013_64\mkspecs\features\warn_on.prf C:\Qt\5.4\msvc2013_64\mkspecs\features\qt.prf C:\Qt\5.4\msvc2013_64\mkspecs\features\resources.prf C:\Qt\5.4\msvc2013_64\mkspecs\features\moc.prf C:\Qt\5.4\msvc2013_64\mkspecs\features\win32\opengl.prf C:\Qt\5.4\msvc2013_64\mkspecs\features\uic.prf C:\Qt\5.4\msvc2013_64\mkspecs\features\win32\windows.prf C:\Qt\5.4\msvc2013_64\mkspecs\features\testcase_targets.prf C:\Qt\5.4\msvc2013_64\mkspecs\features\exceptions.prf C:\Qt\5.4\msvc2013_64\mkspecs\features\yacc.prf C:\Qt\5.4\msvc2013_64\mkspecs\features\lex.prf Controller.pro C:/Qt/5.4/msvc2013_64/lib/qtmain.prl C:/Qt/5.4/msvc2013_64/lib/Qt5Core.prl C:/Qt/5.4/msvc2013_64/lib/Qt5Widgets.prl C:/Qt/5.4/msvc2013_64/lib/Qt5Gui.prl C:/Qt/5.4/msvc2013_64/lib/Qt5SerialPort.prl  NO_PCH_SOURCES RESOURCES HEADERS SOURCES OBJECTIVE_SOURCES FORMS YACCSOURCES YACCSOURCES LEXSOURCES 
+	$(ZIP) Controller.zip $(SOURCES) $(DIST) Controller.pro C:\Qt\5.4\msvc2013_64\mkspecs\features\spec_pre.prf C:\Qt\5.4\msvc2013_64\mkspecs\common\shell-win32.conf C:\Qt\5.4\msvc2013_64\mkspecs\qconfig.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_axbase.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_axbase_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_axcontainer.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_axcontainer_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_axserver.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_axserver_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_bluetooth.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_bluetooth_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_bootstrap_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_clucene_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_concurrent.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_concurrent_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_core.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_core_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_dbus.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_dbus_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_declarative.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_declarative_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_designer.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_designer_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_designercomponents_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_enginio.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_enginio_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_gui.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_gui_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_help.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_help_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_location.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_location_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_multimedia.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_multimedia_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_multimediawidgets.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_multimediawidgets_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_network.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_network_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_nfc.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_nfc_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_opengl.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_opengl_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_openglextensions.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_openglextensions_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_platformsupport_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_positioning.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_positioning_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_printsupport.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_printsupport_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_qml.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_qml_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_qmldevtools_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_qmltest.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_qmltest_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_quick.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_quick_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_quickparticles_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_quickwidgets.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_quickwidgets_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_script.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_script_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_scripttools.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_scripttools_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_sensors.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_sensors_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_serialport.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_serialport_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_sql.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_sql_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_svg.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_svg_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_testlib.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_testlib_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_uitools.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_uitools_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_webchannel.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_webchannel_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_webengine.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_webengine_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_webenginecore.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_webenginecore_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_webenginewidgets.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_webenginewidgets_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_webkit.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_webkit_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_webkitwidgets.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_webkitwidgets_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_websockets.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_websockets_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_widgets.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_widgets_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_winextras.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_winextras_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_xml.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_xml_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_xmlpatterns.pri C:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_xmlpatterns_private.pri C:\Qt\5.4\msvc2013_64\mkspecs\features\qt_functions.prf C:\Qt\5.4\msvc2013_64\mkspecs\features\qt_config.prf C:\Qt\5.4\msvc2013_64\mkspecs\features\win32\qt_config.prf C:\Qt\5.4\msvc2013_64\mkspecs\win32-msvc2013\qmake.conf C:\Qt\5.4\msvc2013_64\mkspecs\features\spec_post.prf C:\Qt\5.4\msvc2013_64\mkspecs\features\exclusive_builds.prf C:\Qt\5.4\msvc2013_64\mkspecs\features\default_pre.prf C:\Qt\5.4\msvc2013_64\mkspecs\features\win32\default_pre.prf C:\Qt\5.4\msvc2013_64\mkspecs\features\resolve_config.prf C:\Qt\5.4\msvc2013_64\mkspecs\features\exclusive_builds_post.prf C:\Qt\5.4\msvc2013_64\mkspecs\features\default_post.prf C:\Qt\5.4\msvc2013_64\mkspecs\features\build_pass.prf C:\Qt\5.4\msvc2013_64\mkspecs\features\win32\rtti.prf C:\Qt\5.4\msvc2013_64\mkspecs\features\precompile_header.prf C:\Qt\5.4\msvc2013_64\mkspecs\features\warn_on.prf C:\Qt\5.4\msvc2013_64\mkspecs\features\qt.prf C:\Qt\5.4\msvc2013_64\mkspecs\features\resources.prf C:\Qt\5.4\msvc2013_64\mkspecs\features\moc.prf C:\Qt\5.4\msvc2013_64\mkspecs\features\testlib_defines.prf C:\Qt\5.4\msvc2013_64\mkspecs\features\win32\console.prf C:\Qt\5.4\msvc2013_64\mkspecs\features\win32\opengl.prf C:\Qt\5.4\msvc2013_64\mkspecs\features\uic.prf C:\Qt\5.4\msvc2013_64\mkspecs\features\testcase_targets.prf C:\Qt\5.4\msvc2013_64\mkspecs\features\exceptions.prf C:\Qt\5.4\msvc2013_64\mkspecs\features\yacc.prf C:\Qt\5.4\msvc2013_64\mkspecs\features\lex.prf Controller.pro C:/Qt/5.4/msvc2013_64/lib/Qt5Widgets.prl C:/Qt/5.4/msvc2013_64/lib/Qt5Gui.prl C:/Qt/5.4/msvc2013_64/lib/Qt5SerialPort.prl C:/Qt/5.4/msvc2013_64/lib/Qt5Test.prl C:/Qt/5.4/msvc2013_64/lib/Qt5Core.prl  NO_PCH_SOURCES RESOURCES HEADERS SOURCES OBJECTIVE_SOURCES FORMS YACCSOURCES YACCSOURCES LEXSOURCES 
 
 clean: compiler_clean 
 	-$(DEL_FILE) release\main.obj release\controller.obj release\tmcl.obj release\moc_controller.obj
@@ -252,7 +252,7 @@ release\moc_controller.cpp: C:\Qt\5.4\msvc2013_64\include\QtWidgets\QMainWindow 
 		C:\Qt\5.4\msvc2013_64\include\QtSerialPort\qserialport.h \
 		C:\Qt\5.4\msvc2013_64\include\QtSerialPort\qserialportglobal.h \
 		controller.h
-	C:\Qt\5.4\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/5.4/msvc2013_64/mkspecs/win32-msvc2013 -IC:/Users/Chao/Documents/GitHub/Controller/Controller -IC:/Qt/5.4/msvc2013_64/include -IC:/Qt/5.4/msvc2013_64/include/QtWidgets -IC:/Qt/5.4/msvc2013_64/include/QtGui -IC:/Qt/5.4/msvc2013_64/include/QtANGLE -IC:/Qt/5.4/msvc2013_64/include/QtSerialPort -IC:/Qt/5.4/msvc2013_64/include/QtCore controller.h -o release\moc_controller.cpp
+	C:\Qt\5.4\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/5.4/msvc2013_64/mkspecs/win32-msvc2013 -IC:/Users/Chao/Documents/GitHub/Controller/Controller -IC:/Qt/5.4/msvc2013_64/include -IC:/Qt/5.4/msvc2013_64/include/QtWidgets -IC:/Qt/5.4/msvc2013_64/include/QtGui -IC:/Qt/5.4/msvc2013_64/include/QtANGLE -IC:/Qt/5.4/msvc2013_64/include/QtSerialPort -IC:/Qt/5.4/msvc2013_64/include/QtTest -IC:/Qt/5.4/msvc2013_64/include/QtCore controller.h -o release\moc_controller.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -391,7 +391,10 @@ release\main.obj: main.cpp controller.h \
 		C:\Qt\5.4\msvc2013_64\include\QtGui\qguiapplication.h \
 		C:\Qt\5.4\msvc2013_64\include\QtGui\qinputmethod.h \
 		tmcl.h \
-		C:\Qt\5.4\msvc2013_64\include\QtCore\QDebug
+		C:\Qt\5.4\msvc2013_64\include\QtCore\QDebug \
+		C:\Qt\5.4\msvc2013_64\include\QtCore\QChar \
+		C:\Qt\5.4\msvc2013_64\include\QtCore\QThread \
+		C:\Qt\5.4\msvc2013_64\include\QtCore\qthread.h
 
 release\controller.obj: controller.cpp controller.h \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\QMainWindow \
@@ -503,6 +506,60 @@ release\controller.obj: controller.cpp controller.h \
 		C:\Qt\5.4\msvc2013_64\include\QtSerialPort\qserialport.h \
 		C:\Qt\5.4\msvc2013_64\include\QtSerialPort\qserialportglobal.h \
 		ui_controller.h \
+		C:\Qt\5.4\msvc2013_64\include\QtCore\QVariant \
+		C:\Qt\5.4\msvc2013_64\include\QtWidgets\QAction \
+		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qaction.h \
+		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qactiongroup.h \
+		C:\Qt\5.4\msvc2013_64\include\QtWidgets\QApplication \
+		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qapplication.h \
+		C:\Qt\5.4\msvc2013_64\include\QtCore\qcoreapplication.h \
+		C:\Qt\5.4\msvc2013_64\include\QtCore\qeventloop.h \
+		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qdesktopwidget.h \
+		C:\Qt\5.4\msvc2013_64\include\QtGui\qguiapplication.h \
+		C:\Qt\5.4\msvc2013_64\include\QtGui\qinputmethod.h \
+		C:\Qt\5.4\msvc2013_64\include\QtWidgets\QButtonGroup \
+		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qbuttongroup.h \
+		C:\Qt\5.4\msvc2013_64\include\QtWidgets\QHeaderView \
+		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qheaderview.h \
+		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qabstractitemview.h \
+		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qabstractscrollarea.h \
+		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qframe.h \
+		C:\Qt\5.4\msvc2013_64\include\QtCore\qabstractitemmodel.h \
+		C:\Qt\5.4\msvc2013_64\include\QtCore\qitemselectionmodel.h \
+		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qabstractitemdelegate.h \
+		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qstyleoption.h \
+		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qabstractspinbox.h \
+		C:\Qt\5.4\msvc2013_64\include\QtGui\qvalidator.h \
+		C:\Qt\5.4\msvc2013_64\include\QtCore\qregularexpression.h \
+		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qslider.h \
+		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qabstractslider.h \
+		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qstyle.h \
+		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qtabbar.h \
+		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qrubberband.h \
+		C:\Qt\5.4\msvc2013_64\include\QtWidgets\QLabel \
+		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qlabel.h \
+		C:\Qt\5.4\msvc2013_64\include\QtWidgets\QLineEdit \
+		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qlineedit.h \
+		C:\Qt\5.4\msvc2013_64\include\QtGui\qtextcursor.h \
+		C:\Qt\5.4\msvc2013_64\include\QtGui\qtextformat.h \
+		C:\Qt\5.4\msvc2013_64\include\QtGui\qpen.h \
+		C:\Qt\5.4\msvc2013_64\include\QtGui\qtextoption.h \
+		C:\Qt\5.4\msvc2013_64\include\QtWidgets\QMenuBar \
+		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qmenubar.h \
+		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qmenu.h \
+		C:\Qt\5.4\msvc2013_64\include\QtWidgets\QPushButton \
+		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qpushbutton.h \
+		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qabstractbutton.h \
+		C:\Qt\5.4\msvc2013_64\include\QtWidgets\QStatusBar \
+		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qstatusbar.h \
+		C:\Qt\5.4\msvc2013_64\include\QtWidgets\QToolBar \
+		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qtoolbar.h \
+		C:\Qt\5.4\msvc2013_64\include\QtWidgets\QVBoxLayout \
+		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qboxlayout.h \
+		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qlayout.h \
+		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qlayoutitem.h \
+		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qgridlayout.h \
+		C:\Qt\5.4\msvc2013_64\include\QtWidgets\QWidget \
 		C:\Qt\5.4\msvc2013_64\include\QtSerialPort\QSerialPortInfo \
 		C:\Qt\5.4\msvc2013_64\include\QtSerialPort\qserialportinfo.h \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\QtWidgets \
@@ -540,10 +597,8 @@ release\controller.obj: controller.cpp controller.h \
 		C:\Qt\5.4\msvc2013_64\include\QtCore\qtemporarydir.h \
 		C:\Qt\5.4\msvc2013_64\include\QtCore\QScopedPointer \
 		C:\Qt\5.4\msvc2013_64\include\QtCore\qtemporaryfile.h \
-		C:\Qt\5.4\msvc2013_64\include\QtCore\qabstractitemmodel.h \
 		C:\Qt\5.4\msvc2013_64\include\QtCore\qabstractproxymodel.h \
 		C:\Qt\5.4\msvc2013_64\include\QtCore\qidentityproxymodel.h \
-		C:\Qt\5.4\msvc2013_64\include\QtCore\qitemselectionmodel.h \
 		C:\Qt\5.4\msvc2013_64\include\QtCore\qsortfilterproxymodel.h \
 		C:\Qt\5.4\msvc2013_64\include\QtCore\qstringlistmodel.h \
 		C:\Qt\5.4\msvc2013_64\include\QtCore\qjsonarray.h \
@@ -551,10 +606,8 @@ release\controller.obj: controller.cpp controller.h \
 		C:\Qt\5.4\msvc2013_64\include\QtCore\qjsondocument.h \
 		C:\Qt\5.4\msvc2013_64\include\QtCore\qjsonobject.h \
 		C:\Qt\5.4\msvc2013_64\include\QtCore\qabstracteventdispatcher.h \
-		C:\Qt\5.4\msvc2013_64\include\QtCore\qeventloop.h \
 		C:\Qt\5.4\msvc2013_64\include\QtCore\qabstractnativeeventfilter.h \
 		C:\Qt\5.4\msvc2013_64\include\QtCore\qbasictimer.h \
-		C:\Qt\5.4\msvc2013_64\include\QtCore\qcoreapplication.h \
 		C:\Qt\5.4\msvc2013_64\include\QtCore\qmath.h \
 		C:\Qt\5.4\msvc2013_64\include\QtCore\qmetaobject.h \
 		C:\Qt\5.4\msvc2013_64\include\QtCore\qmimedata.h \
@@ -608,7 +661,6 @@ release\controller.obj: controller.cpp controller.h \
 		C:\Qt\5.4\msvc2013_64\include\QtCore\qlinkedlist.h \
 		C:\Qt\5.4\msvc2013_64\include\QtCore\qmessageauthenticationcode.h \
 		C:\Qt\5.4\msvc2013_64\include\QtCore\qqueue.h \
-		C:\Qt\5.4\msvc2013_64\include\QtCore\qregularexpression.h \
 		C:\Qt\5.4\msvc2013_64\include\QtCore\qscopedvaluerollback.h \
 		C:\Qt\5.4\msvc2013_64\include\QtCore\qstack.h \
 		C:\Qt\5.4\msvc2013_64\include\QtCore\qtextboundaryfinder.h \
@@ -637,8 +689,6 @@ release\controller.obj: controller.cpp controller.h \
 		C:\Qt\5.4\msvc2013_64\include\QtGui\qdrag.h \
 		C:\Qt\5.4\msvc2013_64\include\QtGui\qgenericplugin.h \
 		C:\Qt\5.4\msvc2013_64\include\QtGui\qgenericpluginfactory.h \
-		C:\Qt\5.4\msvc2013_64\include\QtGui\qguiapplication.h \
-		C:\Qt\5.4\msvc2013_64\include\QtGui\qinputmethod.h \
 		C:\Qt\5.4\msvc2013_64\include\QtGui\qoffscreensurface.h \
 		C:\Qt\5.4\msvc2013_64\include\QtGui\qsurface.h \
 		C:\Qt\5.4\msvc2013_64\include\QtGui\qsurfaceformat.h \
@@ -695,16 +745,12 @@ release\controller.obj: controller.cpp controller.h \
 		C:\Qt\5.4\msvc2013_64\include\QtGui\qpagesize.h \
 		C:\Qt\5.4\msvc2013_64\include\QtGui\qpaintengine.h \
 		C:\Qt\5.4\msvc2013_64\include\QtGui\qpainter.h \
-		C:\Qt\5.4\msvc2013_64\include\QtGui\qtextoption.h \
-		C:\Qt\5.4\msvc2013_64\include\QtGui\qpen.h \
 		C:\Qt\5.4\msvc2013_64\include\QtGui\qpdfwriter.h \
 		C:\Qt\5.4\msvc2013_64\include\QtGui\qabstracttextdocumentlayout.h \
 		C:\Qt\5.4\msvc2013_64\include\QtGui\qtextlayout.h \
-		C:\Qt\5.4\msvc2013_64\include\QtGui\qtextformat.h \
 		C:\Qt\5.4\msvc2013_64\include\QtGui\qglyphrun.h \
 		C:\Qt\5.4\msvc2013_64\include\QtGui\qrawfont.h \
 		C:\Qt\5.4\msvc2013_64\include\QtGui\qfontdatabase.h \
-		C:\Qt\5.4\msvc2013_64\include\QtGui\qtextcursor.h \
 		C:\Qt\5.4\msvc2013_64\include\QtGui\qtextdocument.h \
 		C:\Qt\5.4\msvc2013_64\include\QtGui\qstatictext.h \
 		C:\Qt\5.4\msvc2013_64\include\QtGui\qsyntaxhighlighter.h \
@@ -714,23 +760,10 @@ release\controller.obj: controller.cpp controller.h \
 		C:\Qt\5.4\msvc2013_64\include\QtGui\qtextlist.h \
 		C:\Qt\5.4\msvc2013_64\include\QtGui\qtexttable.h \
 		C:\Qt\5.4\msvc2013_64\include\QtGui\qdesktopservices.h \
-		C:\Qt\5.4\msvc2013_64\include\QtGui\qvalidator.h \
 		C:\Qt\5.4\msvc2013_64\include\QtGui\qtguiversion.h \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\complexwidgets.h \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qaccessiblewidget.h \
-		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qabstractitemview.h \
-		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qabstractscrollarea.h \
-		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qframe.h \
-		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qabstractitemdelegate.h \
-		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qstyleoption.h \
-		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qabstractspinbox.h \
-		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qslider.h \
-		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qabstractslider.h \
-		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qstyle.h \
-		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qtabbar.h \
-		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qrubberband.h \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\itemviews.h \
-		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qheaderview.h \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qaccessiblemenu.h \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qaccessiblewidgets.h \
 		C:\Qt\5.4\msvc2013_64\include\QtCore\QPointer \
@@ -744,7 +777,6 @@ release\controller.obj: controller.cpp controller.h \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qfilesystemmodel.h \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qfontdialog.h \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qinputdialog.h \
-		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qlineedit.h \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qmessagebox.h \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qprogressdialog.h \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qwizard.h \
@@ -779,20 +811,11 @@ release\controller.obj: controller.cpp controller.h \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qtreeview.h \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qtreewidget.h \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qtreewidgetitemiterator.h \
-		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qaction.h \
-		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qactiongroup.h \
-		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qapplication.h \
-		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qdesktopwidget.h \
-		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qboxlayout.h \
-		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qlayout.h \
-		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qlayoutitem.h \
-		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qgridlayout.h \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qformlayout.h \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\QLayout \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qgesture.h \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qgesturerecognizer.h \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qopenglwidget.h \
-		C:\Qt\5.4\msvc2013_64\include\QtWidgets\QWidget \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qshortcut.h \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qstackedlayout.h \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qtooltip.h \
@@ -814,18 +837,14 @@ release\controller.obj: controller.cpp controller.h \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\QScrollerProperties \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qscrollerproperties.h \
 		C:\Qt\5.4\msvc2013_64\include\QtCore\QMetaType \
-		C:\Qt\5.4\msvc2013_64\include\QtCore\QVariant \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qsystemtrayicon.h \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qundogroup.h \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qundostack.h \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qundoview.h \
-		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qabstractbutton.h \
-		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qbuttongroup.h \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qcalendarwidget.h \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qcheckbox.h \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qcombobox.h \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qcommandlinkbutton.h \
-		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qpushbutton.h \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qdatetimeedit.h \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qdial.h \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qdialogbuttonbox.h \
@@ -834,12 +853,9 @@ release\controller.obj: controller.cpp controller.h \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qfontcombobox.h \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qgroupbox.h \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qkeysequenceedit.h \
-		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qlabel.h \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qlcdnumber.h \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qmdiarea.h \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qmdisubwindow.h \
-		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qmenu.h \
-		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qmenubar.h \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qplaintextedit.h \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qtextedit.h \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qprogressbar.h \
@@ -850,9 +866,7 @@ release\controller.obj: controller.cpp controller.h \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qsplashscreen.h \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qsplitter.h \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qstackedwidget.h \
-		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qstatusbar.h \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qtextbrowser.h \
-		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qtoolbar.h \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qtoolbox.h \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qtoolbutton.h \
 		C:\Qt\5.4\msvc2013_64\include\QtWidgets\qtwidgetsversion.h \

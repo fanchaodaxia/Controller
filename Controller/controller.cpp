@@ -7,6 +7,7 @@
 #include <windows.h>
 #include <tmcl.h>
 #include <stdlib.h>
+#include <iostream>
 
 
 
@@ -35,7 +36,6 @@ Controller::Controller(QWidget *parent) :
             CommDCB.Parity=NOPARITY;
             CommDCB.StopBits=ONESTOPBIT;
             CommDCB.ByteSize=8;
-
             CommDCB.fBinary=1;  //Binary Mode only
             CommDCB.fParity=0;
             CommDCB.fOutxCtsFlow=0;
@@ -49,15 +49,13 @@ Controller::Controller(QWidget *parent) :
             CommDCB.fNull=0;
             CommDCB.fRtsControl=RTS_CONTROL_TOGGLE;
             CommDCB.fAbortOnError=0;
-
             SetCommState(ComHandle, &CommDCB);
 
             //Set buffer size
             SetupComm(ComHandle, 100, 100);  //Empfangspuffer, Sendepuffer (auch andere Werte möglich)
 
             //Set up timeout values (very important, as otherwise the program will be very slow)
-        GetCommTimeouts(ComHandle, &CommTimeouts);
-
+            GetCommTimeouts(ComHandle, &CommTimeouts); 
             CommTimeouts.ReadIntervalTimeout=MAXDWORD;
             CommTimeouts.ReadTotalTimeoutMultiplier=0;
             CommTimeouts.ReadTotalTimeoutConstant=0;
@@ -69,6 +67,8 @@ Controller::Controller(QWidget *parent) :
 
 Controller::~Controller()
 {
+    CloseHandle(ComHandle);// close the serial port, disconnect controller
+
     if(controller->isOpen()){
         controller->close();
     }
@@ -117,27 +117,74 @@ void Controller::SendCmd(UCHAR Address, UCHAR Command, UCHAR Type, UCHAR Motor, 
 //              TMCL_RESULT_NOT_READY: not enough bytes read so far (try again)
 //              TMCL_RESULT_CHECKSUM_ERROR: checksum of reply packet wrong
 
+/*UCHAR Controller::GetResult(UCHAR *Address, UCHAR *Status, INT *Value)
+{
+    UCHAR RxBuffer[9], Checksum;
+    DWORD Errors, BytesRead;
+    COMSTAT ComStat;
+    int i;
+        ClearCommError(ComHandle, &Errors, &ComStat);
+        if(ComStat.cbInQue>8)
+        {
+            //Empfangen
+            ReadFile(ComHandle, RxBuffer, 9, &BytesRead, NULL);
+            Checksum=0;
+            for(i=0; i<8; i++)
+                Checksum+=RxBuffer[i];
+
+            if(Checksum!=RxBuffer[8]) return TMCL_RESULT_CHECKSUM_ERROR;
+            *Address = RxBuffer[0];
+            *Status = RxBuffer[2];
+            *Value = (RxBuffer[4] << 24) | (RxBuffer[5] << 16) | (RxBuffer[6] << 8) | RxBuffer[7];
+        } else return TMCL_RESULT_NOT_READY;
+
+        return TMCL_RESULT_OK;
+
+
+}*/
+
+
 UCHAR Controller::GetResult(UCHAR *Address, UCHAR *Status, INT *Value)
 {
     UCHAR RxBuffer[9], Checksum;
     DWORD Errors, BytesRead;
     COMSTAT ComStat;
     int i;
-    ClearCommError(ComHandle, &Errors, &ComStat);
-  if(ComStat.cbInQue>8)
+    unsigned char CmdEcho = TMCL_RESULT_NOT_READY;
+
+    do
     {
-        //Empfangen
-        ReadFile(ComHandle, RxBuffer, 9, &BytesRead, NULL);
+        ClearCommError(ComHandle, &Errors, &ComStat);
+        if(ComStat.cbInQue>8)
+        {
+            //Empfangen
+            ReadFile(ComHandle, RxBuffer, 9, &BytesRead, NULL);
+            Checksum=0;
+            for(i=0; i<8; i++)
+                Checksum+=RxBuffer[i];
+            if(Checksum!=RxBuffer[8])
+              CmdEcho = TMCL_RESULT_CHECKSUM_ERROR;
+            else
+            {
+              CmdEcho = TMCL_RESULT_OK;
+              //std::cout << "Command echo OK!";
+              printf("Command echo OK! \n");
+            }
 
-        Checksum=0;
-        for(i=0; i<8; i++)
-            Checksum+=RxBuffer[i];
+            *Address = RxBuffer[0];
+            *Status = RxBuffer[2];
+            *Value = (RxBuffer[4] << 24) | (RxBuffer[5] << 16) | (RxBuffer[6] << 8) | RxBuffer[7];
+        }
+        else
+          CmdEcho = TMCL_RESULT_NOT_READY;
+    }
+    while (CmdEcho != TMCL_RESULT_OK);
 
-        if(Checksum!=RxBuffer[8]) return TMCL_RESULT_CHECKSUM_ERROR;
-        *Address=RxBuffer[0];
-        *Status=RxBuffer[2];
-        *Value=(RxBuffer[4] << 24) | (RxBuffer[5] << 16) | (RxBuffer[6] << 8) | RxBuffer[7];
-    } else return TMCL_RESULT_NOT_READY;
+    return CmdEcho;
 
-    return TMCL_RESULT_OK;
 }
+
+/*bool Controller::isCmdReady()
+{
+    GetResult();
+}*/

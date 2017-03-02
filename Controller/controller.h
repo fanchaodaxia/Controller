@@ -17,7 +17,7 @@ public:
     explicit Controller(QWidget *parent = 0);
     ~Controller();
     void SendCmd(UCHAR Address, UCHAR Command, UCHAR Type, UCHAR Motor, INT Value);
-    UCHAR GetResult(UCHAR *Address, UCHAR *Status, int *Value);
+    UCHAR GetResult(UCHAR *Address, UCHAR *Status, INT *Value);
 private:
     Ui::Controller *ui;
     QSerialPort *controller;

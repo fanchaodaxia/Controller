@@ -14,17 +14,17 @@
    <string>Controller</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="StopButton">
     <property name="geometry">
      <rect>
-      <x>290</x>
+      <x>300</x>
       <y>200</y>
-      <width>71</width>
+      <width>81</width>
       <height>31</height>
      </rect>
     </property>
     <property name="text">
-     <string>Stop</string>
+     <string>Motor Stop</string>
     </property>
    </widget>
    <widget class="QLabel" name="label">
@@ -79,7 +79,7 @@
      <rect>
       <x>10</x>
       <y>60</y>
-      <width>68</width>
+      <width>78</width>
       <height>111</height>
      </rect>
     </property>
@@ -107,6 +107,19 @@
      </item>
     </layout>
    </widget>
+   <widget class="QPushButton" name="ExeButton">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>200</y>
+      <width>71</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Execute</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -114,7 +127,7 @@
      <x>0</x>
      <y>0</y>
      <width>400</width>
-     <height>21</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>
