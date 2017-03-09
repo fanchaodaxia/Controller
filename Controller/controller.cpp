@@ -21,7 +21,7 @@ Controller::Controller(QWidget *parent) :
 // open the serial port
         DCB CommDCB;
         COMMTIMEOUTS CommTimeouts;
-        LPCWSTR ComName = L"COM4";
+        LPCWSTR ComName = L"COM7";
         DWORD BaudRate = CBR_9600;
         ComHandle=CreateFile(ComName, GENERIC_READ|GENERIC_WRITE, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 

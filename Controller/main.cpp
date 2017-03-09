@@ -22,15 +22,24 @@ int main(int argc, char *argv[])
    //result = w.GetResult(&add, &s, &v);
     //qDebug() << "status from debug before" << s <<endl;
 
-    w.SendCmd(1,TMCL_ROR,0,1,1000); //motor 1 turn right
+    /*w.SendCmd(1,TMCL_ROR,0,1,1000); //motor 1 turn right
     result = w.GetResult(&add, &s, &v);
 
     w.SendCmd(1,TMCL_ROR,0,2,1000); //motor 2 turn right
+    result = w.GetResult(&add, &s, &v);*/
+
+    /*w.SendCmd(1,TMCL_MVP,MVP_REL,0,500);
     result = w.GetResult(&add, &s, &v);
+    Sleep(5000);
+    w.SendCmd(1,TMCL_MVP,MVP_REL,1,500);
+    result = w.GetResult(&add, &s, &v);*/
+    w.SendCmd(1,TMCL_SIO,3,2,1);
+    result = w.GetResult(&add, &s, &v);
+    Sleep(5000);
 
-    //Sleep(5000);
-
-
+    w.SendCmd(1,TMCL_SIO,3,2,0);
+    result = w.GetResult(&add, &s, &v);
+    Sleep(5000);
 
     /*w.SendCmd(1,TMCL_MST,0,1,0);// motor 1 stop
     result = w.GetResult(&add, &s, &v);
