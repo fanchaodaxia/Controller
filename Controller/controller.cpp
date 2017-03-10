@@ -21,8 +21,11 @@ Controller::Controller(QWidget *parent) :
 // open the serial port
         DCB CommDCB;
         COMMTIMEOUTS CommTimeouts;
-        LPCWSTR ComName = L"COM7";
+        LPCWSTR ComName = L"COM7"; // Com port used for the controller
         DWORD BaudRate = CBR_9600;
+        bool IsControllerConnected = false;
+        UCHAR add, s;
+        INT v;
         ComHandle=CreateFile(ComName, GENERIC_READ|GENERIC_WRITE, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 
         if(GetLastError()!=ERROR_SUCCESS)
@@ -52,7 +55,7 @@ Controller::Controller(QWidget *parent) :
             SetCommState(ComHandle, &CommDCB);
 
             //Set buffer size
-            SetupComm(ComHandle, 100, 100);  //Empfangspuffer, Sendepuffer (auch andere Werte möglich)
+            SetupComm(ComHandle, 100, 100);
 
             //Set up timeout values (very important, as otherwise the program will be very slow)
             GetCommTimeouts(ComHandle, &CommTimeouts); 
@@ -60,9 +63,43 @@ Controller::Controller(QWidget *parent) :
             CommTimeouts.ReadTotalTimeoutMultiplier=0;
             CommTimeouts.ReadTotalTimeoutConstant=0;
             SetCommTimeouts(ComHandle, &CommTimeouts);
-            ui->label_status->setText("COM5 connected");
+            IsControllerConnected = true;
+            ui->label_status->setText("Controller connected");
+
       }
+        // If connection if connected succesful, initialize the controller
+        // Assume only motor 0 and motor 1 will be used here
+        if (IsControllerConnected)
+        {
+            SendCmd(1,TMCL_SAP,4,0,1400);//set motor 0 maximum velocity
+            while(GetResult(&add, &s, &v)); // Wait untile the reault is OK
+            SendCmd(1,TMCL_SAP,4,1,1400);//set motor 1 maximum velocity
+            while(GetResult(&add, &s, &v));
+
+            SendCmd(1,TMCL_SAP,5,0,1200);//set motor 0 maximum acceleration
+            while(GetResult(&add, &s, &v));
+            SendCmd(1,TMCL_SAP,5,1,1200);//set motor 1 maximum acceleration
+            while(GetResult(&add, &s, &v));
+
+            // This the most IMPORTANT parameter!!!
+            SendCmd(1,TMCL_SAP,6,0,197);//set motor 0 maximum current to 0.85A
+            while(GetResult(&add, &s, &v));
+            SendCmd(1,TMCL_SAP,6,1,197);//set motor 1 maximum current to 0.85A
+            while(GetResult(&add, &s, &v));
+
+            SendCmd(1,TMCL_SAP,7,0,20);//set motor 0 standby current to 0.1A
+            while(GetResult(&add, &s, &v));
+            SendCmd(1,TMCL_SAP,7,1,20);//set motor 1 standby current to 0.1A
+            while(GetResult(&add, &s, &v));
+
+            SendCmd(1,TMCL_SAP,140,0,4);//set motor 0 microstepping resolution to 16 microsteps
+            while(GetResult(&add, &s, &v));
+            SendCmd(1,TMCL_SAP,140,1,4);//set motor 1 microstepping resolution to 16 microsteps
+            while(GetResult(&add, &s, &v));
+        }
     }
+
+
 
 
 Controller::~Controller()
@@ -108,41 +145,6 @@ void Controller::SendCmd(UCHAR Address, UCHAR Command, UCHAR Type, UCHAR Motor, 
 }
 
 
-//Read the result that is returned by the module
-//Parameters: Handle: handle of the serial port, as returned by OpenRS232
-//            Address: pointer to variable to hold the reply address returned by the module
-//            Status: pointer to variable to hold the status returned by the module (100 means okay)
-//            Value: pointer to variable to hold the value returned by the module
-//Return value: TMCL_RESULT_OK: result has been read without errors
-//              TMCL_RESULT_NOT_READY: not enough bytes read so far (try again)
-//              TMCL_RESULT_CHECKSUM_ERROR: checksum of reply packet wrong
-
-/*UCHAR Controller::GetResult(UCHAR *Address, UCHAR *Status, INT *Value)
-{
-    UCHAR RxBuffer[9], Checksum;
-    DWORD Errors, BytesRead;
-    COMSTAT ComStat;
-    int i;
-        ClearCommError(ComHandle, &Errors, &ComStat);
-        if(ComStat.cbInQue>8)
-        {
-            //Empfangen
-            ReadFile(ComHandle, RxBuffer, 9, &BytesRead, NULL);
-            Checksum=0;
-            for(i=0; i<8; i++)
-                Checksum+=RxBuffer[i];
-
-            if(Checksum!=RxBuffer[8]) return TMCL_RESULT_CHECKSUM_ERROR;
-            *Address = RxBuffer[0];
-            *Status = RxBuffer[2];
-            *Value = (RxBuffer[4] << 24) | (RxBuffer[5] << 16) | (RxBuffer[6] << 8) | RxBuffer[7];
-        } else return TMCL_RESULT_NOT_READY;
-
-        return TMCL_RESULT_OK;
-
-
-}*/
-
 
 UCHAR Controller::GetResult(UCHAR *Address, UCHAR *Status, INT *Value)
 {
@@ -167,7 +169,6 @@ UCHAR Controller::GetResult(UCHAR *Address, UCHAR *Status, INT *Value)
             else
             {
               CmdEcho = TMCL_RESULT_OK;
-              //std::cout << "Command echo OK!";
               printf("Command echo OK! \n");
             }
 
@@ -184,7 +185,3 @@ UCHAR Controller::GetResult(UCHAR *Address, UCHAR *Status, INT *Value)
 
 }
 
-/*bool Controller::isCmdReady()
-{
-    GetResult();
-}*/

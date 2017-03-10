@@ -30,7 +30,7 @@ class Ui_Controller
 {
 public:
     QWidget *centralWidget;
-    QPushButton *pushButton;
+    QPushButton *StopButton;
     QLabel *label;
     QLabel *label_status;
     QWidget *layoutWidget;
@@ -43,6 +43,7 @@ public:
     QLabel *label_status_2;
     QLabel *label_status_3;
     QLabel *label_status_4;
+    QPushButton *ExeButton;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -54,9 +55,9 @@ public:
         Controller->resize(400, 300);
         centralWidget = new QWidget(Controller);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        pushButton = new QPushButton(centralWidget);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setGeometry(QRect(290, 200, 71, 31));
+        StopButton = new QPushButton(centralWidget);
+        StopButton->setObjectName(QStringLiteral("StopButton"));
+        StopButton->setGeometry(QRect(300, 200, 81, 31));
         label = new QLabel(centralWidget);
         label->setObjectName(QStringLiteral("label"));
         label->setGeometry(QRect(10, 10, 91, 31));
@@ -88,7 +89,7 @@ public:
 
         layoutWidget1 = new QWidget(centralWidget);
         layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
-        layoutWidget1->setGeometry(QRect(10, 60, 68, 111));
+        layoutWidget1->setGeometry(QRect(10, 60, 78, 111));
         verticalLayout_2 = new QVBoxLayout(layoutWidget1);
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setContentsMargins(11, 11, 11, 11);
@@ -109,10 +110,13 @@ public:
 
         verticalLayout_2->addWidget(label_status_4);
 
+        ExeButton = new QPushButton(centralWidget);
+        ExeButton->setObjectName(QStringLiteral("ExeButton"));
+        ExeButton->setGeometry(QRect(190, 200, 71, 31));
         Controller->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(Controller);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 400, 21));
+        menuBar->setGeometry(QRect(0, 0, 400, 26));
         Controller->setMenuBar(menuBar);
         mainToolBar = new QToolBar(Controller);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -129,12 +133,13 @@ public:
     void retranslateUi(QMainWindow *Controller)
     {
         Controller->setWindowTitle(QApplication::translate("Controller", "Controller", 0));
-        pushButton->setText(QApplication::translate("Controller", "Stop", 0));
+        StopButton->setText(QApplication::translate("Controller", "Motor Stop", 0));
         label->setText(QApplication::translate("Controller", "Controller status", 0));
         label_status->setText(QApplication::translate("Controller", "status", 0));
         label_status_2->setText(QApplication::translate("Controller", "X position", 0));
         label_status_3->setText(QApplication::translate("Controller", "Y position", 0));
         label_status_4->setText(QApplication::translate("Controller", "Retract cover", 0));
+        ExeButton->setText(QApplication::translate("Controller", "Execute", 0));
     } // retranslateUi
 
 };
